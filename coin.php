@@ -48,11 +48,11 @@ function throw_coins_no_recusive($coin_f_collection, $number = 1, $pre = "")
             
             if ($number > 0) {
                 $pre .= $coin_function();
-                array_push($stack, array('n' => $number, 'r' => substr($pre, 0, -1), 'index'=>$i+1));
-                $number -= 1;
                 
+                //index points to next item
+                array_push($stack, array('n' => $number, 'r' => substr($pre, 0, -1), 'index'=>$i+1));
+                $number -= 1;    
                 $i = 0;
-
             } else {
                 echo $pre . $coin_function() . "\n";
                 $i += 1;
@@ -85,6 +85,36 @@ function coin_c()
     return "c";
 }
 
+function dice_1()
+{
+    return 1;
+}
+
+function dice_2()
+{
+    return 2;
+}
+
+function dice_3()
+{
+    return 3;
+}
+
+function dice_4()
+{
+    return 4;
+}
+
+function dice_5()
+{
+    return 5;
+}
+
+function dice_6()
+{
+    return 6;
+}
+
 //main 
 /*
 $coin_f_collection = array("coin_h", "coin_t");
@@ -114,9 +144,13 @@ throw_coins_no_recusive($coin_f_collection, 1 );
 echo "\n";
 */
 $coin_f_collection = array("coin_h", "coin_t");
-throw_coins_no_recusive($coin_f_collection, 2 );
+throw_coins_no_recusive($coin_f_collection, 5 );
 echo "\n";
-/*
+
 $coin_f_collection = array("coin_a", "coin_b", "coin_c");
 throw_coins_no_recusive($coin_f_collection, 3 );
-echo "\n";*/
+echo "\n";
+
+$coin_f_collection = array("dice_1", "dice_2", "dice_3","dice_4","dice_5","dice_6");
+throw_coins_no_recusive($coin_f_collection, 2 );
+echo "\n";
