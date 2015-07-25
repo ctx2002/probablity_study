@@ -40,40 +40,33 @@ function throw_coins_no_recusive($coin_f_collection, $number = 1, $pre = "")
 
     $temp = count ( $coin_f_collection);
     $number -= 1;
-    
-    $j = 0;
+    $i = 0;
     while(true) {
         
-        
-        a:
-        //while(true) {
-        for ($i = $j; $i < $temp; $i++) {
-
+        while ($i < $temp) {
             $coin_function = $coin_f_collection[$i];
-
+            
             if ($number > 0) {
-
                 $pre .= $coin_function();
                 array_push($stack, array('n' => $number, 'r' => substr($pre, 0, -1), 'index'=>$i+1));
                 $number -= 1;
-                $j = 0;
-                goto a;
+                
+                $i = 0;
+
             } else {
                 echo $pre . $coin_function() . "\n";
+                $i += 1;
             }
+            
         }
-        //}
         
-        //if ($number == 0) {
-            $item = array_pop($stack);
-            
-            if (!$item) return;
-            $number = $item['n'];
-            $j = $item['index'];
-            //echo $i;
-            $pre = $item['r'];
-            
-        //}
+        
+        $item = array_pop($stack);
+
+        if (!$item) return;
+        $number = $item['n'];
+        $i = $item['index']; //important, 
+        $pre = $item['r'];
     }    
 }
 
@@ -116,14 +109,14 @@ throw_coins($coin_f_collection,3);
 echo "\n";
 */
 
-$coin_f_collection = array("coin_h", "coin_t");
+/*$coin_f_collection = array("coin_h", "coin_t");
 throw_coins_no_recusive($coin_f_collection, 1 );
 echo "\n";
-
+*/
 $coin_f_collection = array("coin_h", "coin_t");
-throw_coins_no_recusive($coin_f_collection, 5 );
+throw_coins_no_recusive($coin_f_collection, 2 );
 echo "\n";
-
+/*
 $coin_f_collection = array("coin_a", "coin_b", "coin_c");
 throw_coins_no_recusive($coin_f_collection, 3 );
-echo "\n";
+echo "\n";*/
