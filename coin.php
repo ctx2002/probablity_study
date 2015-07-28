@@ -19,6 +19,25 @@ function coin_t()
     return "T";
 }
 
+function throw_coin_untill_H()
+{
+    $counter = 1;
+    while (true) {
+        $index = coin();
+        $c = coin_side();
+        $side = $c[$index];
+        echo $side;
+        $counter += 1;
+        if ($counter % 16 == 0) {
+            echo "\n";
+        }
+        
+        if ($side == "H") {
+            break;
+        }
+    }
+}
+
 function throw_coins($coin_f_collection, $number = 1, $pre = "")
 {
     $number -= 1;
@@ -154,3 +173,5 @@ echo "\n";
 $coin_f_collection = array("dice_1", "dice_2", "dice_3","dice_4","dice_5","dice_6");
 throw_coins_no_recusive($coin_f_collection, 2 );
 echo "\n";
+
+throw_coin_untill_H();
