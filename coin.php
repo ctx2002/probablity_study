@@ -60,6 +60,7 @@ function throw_coins_no_recusive($coin_f_collection, $number = 1, $pre = "")
     $temp = count ( $coin_f_collection);
     $number -= 1;
     $i = 0;
+    $con = array();
     while(true) {
         
         while ($i < $temp) {
@@ -73,20 +74,22 @@ function throw_coins_no_recusive($coin_f_collection, $number = 1, $pre = "")
                 $number -= 1;    
                 $i = 0;
             } else {
-                echo $pre . $coin_function() . "\n";
-                $i += 1;
+                $h = $pre . $coin_function();
+                $con[] = $h;
+                echo $h . "\n";
+                $i += 1;    
             }
-            
         }
-        
         
         $item = array_pop($stack);
 
-        if (!$item) return;
+        if (!$item) {return $con; }
         $number = $item['n'];
         $i = $item['index']; //important, 
         $pre = $item['r'];
-    }    
+    }
+    //echo "end\n";
+    return $con;
 }
 
 function coin_a()
@@ -134,6 +137,57 @@ function dice_6()
     return 6;
 }
 
+//一小时内， 某十字路口通过的车辆数
+function vehicle_at_cross_road($time)
+{
+    
+}
+
+//抛三枚硬币，至少出现一个正面的集合
+function throw3_at_least_one_h()
+{
+    $h = function()
+    {
+        return "H";
+    };
+
+    $t =function()
+    {
+        return "T";
+    };
+    $coin_f_collection = array($h, $t);
+    $result = throw_coins_no_recusive($coin_f_collection, 3 );
+    echo "----\n";
+    foreach ($result as $value) {
+        if (strpos($value, "H") !== FALSE) {
+            echo $value ."\n";
+        }
+    }
+}
+
+//抛三枚硬币，最多出现一个正面的集合
+function throw3_at_most_one_h()
+{
+    $h = function()
+    {
+        return "H";
+    };
+
+    $t =function()
+    {
+        return "T";
+    };
+    $coin_f_collection = array($h, $t);
+    $result = throw_coins_no_recusive($coin_f_collection, 3 );
+    echo "----at  most\n";
+    foreach ($result as $value) {
+        if (preg_match("%^[^H]+$|^[H][^H]+$|^[^H]+H[^H]*$%s", $value, $m)) {
+            echo $value . "\n";
+        }
+    }
+}
+
+
 //main 
 /*
 $coin_f_collection = array("coin_h", "coin_t");
@@ -174,4 +228,8 @@ $coin_f_collection = array("dice_1", "dice_2", "dice_3","dice_4","dice_5","dice_
 throw_coins_no_recusive($coin_f_collection, 2 );
 echo "\n";
 
-throw_coin_untill_H();
+//throw_coin_untill_H();
+
+throw3_at_least_one_h();
+
+throw3_at_most_one_h();
